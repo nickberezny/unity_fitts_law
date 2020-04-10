@@ -25,7 +25,7 @@ public class GetTargetData : MonoBehaviour
     void Start()
     {
         cam = GetComponent<Camera>();
-        StreamWriter writer = new StreamWriter("Assets/Data/target.txt", true);
+        StreamWriter writer = new StreamWriter("target.txt", false);
 
         sizes = new float[number_of_targets];
         positions = new Vector3[number_of_targets];

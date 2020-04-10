@@ -12,7 +12,7 @@ public class TargetSelect : MonoBehaviour
     private int current_target_number;
     private int total_targets;
 
-    public int max_selections = 10;
+    public int max_selections = 20;
     public int number_of_targets = 16;
 
     List<int> numList;
@@ -25,13 +25,13 @@ public class TargetSelect : MonoBehaviour
     {
         current_target_number = 0;
         numList = new List<int>();
-        writer_all = new StreamWriter("Assets/Data/all_data.txt", true);
-        writer = new StreamWriter("Assets/Data/data.txt", true);
+        writer_all = new StreamWriter("all_data.txt", false);
+        writer = new StreamWriter("data.txt", false);
         print("start");
 
         MakeNewList();
         total_targets = 0;
-        GetNewTarget();
+        
 
     }
 
@@ -42,8 +42,14 @@ public class TargetSelect : MonoBehaviour
         select = false;
         GameObject go;
 
-        //if selection made
-        if (Input.GetMouseButtonDown(0))
+        //wait for click to start
+        if (Input.GetMouseButtonDown(0) && total_targets == 0)
+        {
+            GetNewTarget();
+        }
+
+            //if selection made
+            if (Input.GetMouseButtonDown(0))
         {
             go = GetSelectedObject();
             if (go != null) IsTargetSelected(go, current_target);
@@ -111,7 +117,15 @@ public class TargetSelect : MonoBehaviour
             writer_all.Close();
             writer.Close();
             print("Done!");
+
+            //run matlab dat processing
+            /*
+            string strCmdText;
+            strCmdText = @"matlab -nodisplay -nosplash -nodesktop -r ""run fitts.m""";
+            System.Diagnostics.Process.Start("CMD.exe", strCmdText);
+            */
             Application.Quit();
+            return;
         }
 
         if(numList.Count == 0)

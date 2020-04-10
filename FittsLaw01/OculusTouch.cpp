@@ -2,8 +2,10 @@
 
 int main() {
 
+	Session(0),
+
 	ovrTrackingState trackState = ovr_GetTrackingState(session, displayMidpointSeconds, ovrTrue);
-	ovrPosef         handPoses[2];
+	ovrPosef         HandPoses[2];
 	ovrInputState    inputState;
 
 

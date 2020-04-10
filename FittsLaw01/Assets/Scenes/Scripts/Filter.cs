@@ -23,33 +23,41 @@ public class Filter : MonoBehaviour
         //get new data
         //calculate y
 
-        float wc = 2 * pi * 5; //TODO = update wc based on distance
+        float k = 1; //TODO = update wc based on distance
+        float d = 1; //TODO = get distance to target
+        float v = 1; //TODO = get velocity 
 
         float[] hd, x;
+        x = new float[M];
+        float y = 0;
 
         hd = new float[M];
-        hd = GetWeights(wc, M);
 
-        x = new float[M];
-
-        float y = 0;
+        k = UpdatFilterParma();
+        hd = GetWeights(k, M);
         y = FilterSignal(hd, x, M);
 
 }
 
-    private float[] GetWeights(float wc, int M)
+    private float[] GetWeights(float k, int M)
     {
 
+        float sum = 0;
         float[] hd;
         hd = new float[M];
 
         //calc tap weights for LPF
         for (int i = 0; i < M; i++)
         {
-            float n = i - M / 2;
-            if (n == 0) hd[i] = 1 / pi * n;
-            else hd[i] = Mathf.Sin(wc * n) / (pi * n);
+            hd[i] = 1 / (i ^ k);
+            sum += hd[i];
         }
+        for (int i = 0; i < M; i++)
+        {
+            hd[i] = hd[i] / sum;
+        }
+
+
         return hd;
     }
 
