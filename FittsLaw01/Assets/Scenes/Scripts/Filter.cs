@@ -33,7 +33,7 @@ public class Filter : MonoBehaviour
 
         hd = new float[M];
 
-        k = UpdatFilterParma();
+        //k = UpdatFilterParam();
         hd = GetWeights(k, M);
         y = FilterSignal(hd, x, M);
 
@@ -49,7 +49,7 @@ public class Filter : MonoBehaviour
         //calc tap weights for LPF
         for (int i = 0; i < M; i++)
         {
-            hd[i] = 1 / (i ^ k);
+            //hd[i] = 1 / (i ^ k);
             sum += hd[i];
         }
         for (int i = 0; i < M; i++)

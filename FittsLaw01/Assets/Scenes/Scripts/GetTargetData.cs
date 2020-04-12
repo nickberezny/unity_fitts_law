@@ -10,7 +10,7 @@ public class GetTargetData : MonoBehaviour
     public int number_of_targets = 16;
 
     private Transform target;
-    private float distance;
+    private float distanceCam;
     private float diameter;
     private float angularSize;
     private float pixelSize;
@@ -48,18 +48,17 @@ public class GetTargetData : MonoBehaviour
     {
         
     }
-
+ 
     float getSize(Transform target)
     {
         
         diameter = target.GetComponent<Collider>().bounds.extents.magnitude;
 
-        distance = Vector3.Distance(target.position, Camera.main.transform.position);
-        angularSize = (diameter / distance) * Mathf.Rad2Deg;
+        distanceCam = Vector3.Distance(target.position, Camera.main.transform.position);
+        angularSize = (diameter / distanceCam) * Mathf.Rad2Deg;
         pixelSize = ((angularSize * Screen.height) / Camera.main.fieldOfView);
 
         return pixelSize;
-        //print(pixelSize);
     }
 
 }
